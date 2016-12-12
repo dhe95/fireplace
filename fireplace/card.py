@@ -1,5 +1,5 @@
 from itertools import chain
-from hearthstone.enums import CardType, PlayReq, PlayState, Race, Rarity, Step, Zone
+from hearthstone.enums import CardType, GameTag, PlayReq, PlayState, Race, Rarity, Step, Zone
 from . import actions, cards, rules
 from .aura import TargetableByAuras
 from .entity import BaseEntity, Entity, boolean_property, int_property, slot_property
@@ -33,6 +33,8 @@ class BaseCard(BaseEntity):
 
 	def __init__(self, data):
 		self.data = data
+		name = self.data[GameTag.CARDNAME]
+		self.data = {GameTag.CARDNAME: name}
 		super().__init__()
 		self.requirements = data.requirements.copy()
 		self.id = data.id
